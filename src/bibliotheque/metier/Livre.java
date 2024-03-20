@@ -1,27 +1,21 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
 
-public class Livre extends Ouvrage {
+public class Livre extends Ouvrage{
     private String isbn;
-    private int nombrePages;
-    private TypeLivre typeLivre;
+    private int nbrePages;
+    private TypeLivre tl;
     private String resume;
 
-    public Livre(String titre, byte ageMin, LocalDate dateParution, TypeOuvrage typeOuvrage, double prixLocation, String langue, String genre, String isbn, int nombrePages, TypeLivre typeLivre, String resume) {
-        super(titre, ageMin, dateParution, typeOuvrage, prixLocation, langue, genre);
+
+    public Livre(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, String isbn, int nbrePages, TypeLivre tl, String resume) {
+        super(titre, ageMin, dateParution, TypeOuvrage.LIVRE, prixLocation, langue, genre);
         this.isbn=isbn;
-        this.nombrePages=nombrePages;
-        this.typeLivre=typeLivre;
+        this.nbrePages=nbrePages;
+        this.tl=tl;
         this.resume=resume;
-
-    }
-
-    public double amendeRetard(int oui){
-        double cc=0;
-        System.out.println("coucou");
-        return cc;
     }
 
     public String getIsbn() {
@@ -32,20 +26,20 @@ public class Livre extends Ouvrage {
         this.isbn = isbn;
     }
 
-    public int getNombrePages() {
-        return nombrePages;
+    public int getNbrePages() {
+        return nbrePages;
     }
 
-    public void setNombrePages(int nombrePages) {
-        this.nombrePages = nombrePages;
+    public void setNbrePages(int nbrePages) {
+        this.nbrePages = nbrePages;
     }
 
-    public TypeLivre getTypeLivre() {
-        return typeLivre;
+    public TypeLivre getTl() {
+        return tl;
     }
 
-    public void setTypeLivre(TypeLivre typeLivre) {
-        this.typeLivre = typeLivre;
+    public void setTl(TypeLivre tl) {
+        this.tl = tl;
     }
 
     public String getResume() {
@@ -57,12 +51,36 @@ public class Livre extends Ouvrage {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Livre livre = (Livre) o;
+        return Objects.equals(isbn, livre.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn);
+    }
+
+    @Override
+    public double amendeRetard(int njours) {
+
+        return njours*0.25;
+    }
+
+    @Override
+    public int njlocmax() {
+        return 15;
+    }
+
+    @Override
     public String toString() {
-        return "Livre{" +
+        return super.toString()+ "Livre{" +
                 "isbn='" + isbn + '\'' +
-                ", nombrePages=" + nombrePages +
-                ", typeLivre=" + typeLivre +
+                ", nbrePages=" + nbrePages +
+                ", tl=" + tl +
                 ", resume='" + resume + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }
