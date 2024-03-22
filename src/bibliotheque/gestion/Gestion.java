@@ -158,6 +158,7 @@ public class Gestion {
         lex.add(ex);
         System.out.println("exemplaire créé");
         //TODO attribuer rayon
+        System.out.println("Quel rayon souhaitez-vous lui attribuer ?");
     }
 
     private void gestOuvrages() {
@@ -211,10 +212,13 @@ public class Gestion {
                             o=new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
                             System.out.println("autres langues");
                             List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+                            int i;
+                            int flag=0;
                             do{
                                 choix=Utilitaire.choixListe(langues);
                                 if(choix==langues.size())break;
-                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));
+                                    //TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
                             }while(true);
                            System.out.println("sous-titres");
                             do{
@@ -227,6 +231,7 @@ public class Gestion {
            louv.add(o);
         System.out.println("ouvrage créé");
         //TODO ajouter 1 auteur à la liste des auteurs
+        gestAuteurs();
     }
 
        private void gestAuteurs() {
