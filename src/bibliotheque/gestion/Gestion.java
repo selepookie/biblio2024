@@ -159,6 +159,7 @@ public class Gestion {
         System.out.println("exemplaire créé");
         //TODO attribuer rayon
         System.out.println("Quel rayon souhaitez-vous lui attribuer ?");
+        
     }
 
     private void gestOuvrages() {
