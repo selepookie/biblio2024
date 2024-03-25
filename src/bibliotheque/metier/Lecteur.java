@@ -128,6 +128,12 @@ public class Lecteur {
 
     public List<Exemplaire> listerExemplairesEnLoues(){
         //TODO lister exemplaires loues lecteur
-        return null;
+        List<Exemplaire> lex = new ArrayList<>();
+        for (Location l : lloc){
+            if (l.getDateRestitution() == null){
+                lex.add(l.getExemplaire());
+            }
+        }
+        return lex;
     }
 }
