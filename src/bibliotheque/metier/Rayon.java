@@ -58,15 +58,15 @@ public class Rayon {
         this.genre = genre;
     }
 
-    public List<Exemplaire> getLex() {
+    public Set<Exemplaire> getLex() {
         return lex;
     }
 
-    public void setLex(List<Exemplaire> lex) {
+    public void setLex(Set<Exemplaire> lex) {
         this.lex = lex;
     }
 
-    public List<Exemplaire>listerExemplaires(){
+    public Set<Exemplaire>listerExemplaires(){
         return lex;
     }
 
