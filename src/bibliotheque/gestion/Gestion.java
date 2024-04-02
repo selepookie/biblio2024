@@ -105,6 +105,26 @@ public class Gestion {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        int i=0;
+        List<Exemplaire> exloc = new ArrayList<>();
+        for(Exemplaire ex : lex){
+            if(ex.enLocation()){
+                exloc.add(lex.get(i));
+                i++;
+            }
+        }
+        int j=0;
+        for(Exemplaire ex : exloc){
+            System.out.println((j+1)+"- "+exloc.get(j));
+            j++;
+        }
+        System.out.println("Lequel souhaitez-vous choisir ?");
+        int choix = sc.nextInt();
+        Exemplaire exchoisi = exloc.get(choix-1);
+        // exchoisi.getLloc().get(choix-1).enregistrerRetour(); pas correct
+        //exchoisi.modifierEtat();
+
+
     }
 
     private void gestLocations() {
@@ -159,6 +179,7 @@ public class Gestion {
         r.addExemplaire(lex.get(choix-1));
         //TODO attribuer par une boucle plusieurs exemplaires, les exemplaires sont triés par ordre de titre de l'ouvrage ,
         //  ne proposer que les exemplaires qui ne sont pas dans déjà présents dans ce rayon et qui ne sont dans aucun autre rayon
+        
     }
 
     private void gestExemplaires() {

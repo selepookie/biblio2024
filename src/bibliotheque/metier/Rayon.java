@@ -1,13 +1,11 @@
 package bibliotheque.metier;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Rayon {
     private String codeRayon;
     private String genre;
-    private List<Exemplaire> lex = new ArrayList<>();
+    private Set<Exemplaire> lex = new HashSet<>();
     //TODO remplacer par set
 
     public Rayon(String codeRayon, String genre) {
