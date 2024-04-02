@@ -7,10 +7,7 @@ import bibliotheque.utilitaires.LivreFactoryBeta;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.choixListe;
 
@@ -129,15 +126,22 @@ public class Gestion {
 
     private void gestLocations() {
         int choix;
+        int choix2;
+        int i=0;
         //TODO ne lister que les exemplaires libres et les trier par matricule
-        choix =choixListe(lex);
-        if(lex.get(choix).enLocation()){
-            System.out.println("exemplaire en location");
-            return;
+        lex.sort(Comparator.comparing(Exemplaire::getMatricule));
+        // j'ai trouvé ca sur internet cependant je trouvais ça pertinent pour trier et rapide
+        for(Exemplaire ex : lex){
+            if(!ex.enLocation()){
+                System.out.println((i+1)+"- "+lex.get(i).toString());
+            }
+            i++;
         }
+        System.out.println("Choix : ");
+        choix = sc.nextInt();
         Exemplaire ex = lex.get(choix-1);
-        choix=choixListe(llect);
-        Lecteur lec = llect.get(choix-1);
+        choix2=choixListe(llect);
+        Lecteur lec = llect.get(choix2-1);
         lloc.add(new Location(lec,ex));
     }
 
@@ -179,6 +183,15 @@ public class Gestion {
         r.addExemplaire(lex.get(choix-1));
         //TODO attribuer par une boucle plusieurs exemplaires, les exemplaires sont triés par ordre de titre de l'ouvrage ,
         //  ne proposer que les exemplaires qui ne sont pas dans déjà présents dans ce rayon et qui ne sont dans aucun autre rayon
+        int i=0;
+        for(Exemplaire ex : lex){
+            if(!lex.get(i).getRayon().equals(r) || lex.get(i).getRayon()==null){
+                System.out.println((i+1)+"- "+lex.get(i).toString());
+            }
+            i++;
+        }
+
+        // je dois faire choisir a l'util ?? o
         
     }
 
@@ -192,6 +205,8 @@ public class Gestion {
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
+        // ne marche pas alors qu'on a enlevé le static plus haut je comprends pas
+        lex.sort(Comparator.comparing(Rayon::getCodeRayon));
         choix = choixListe(lrayon);
         ex.setRayon(lrayon.get(choix-1));
         //TODO attribuer un rayon ==> c'est fait  , nouveauté : les rayons sont triès par ordre de code
@@ -299,6 +314,15 @@ public class Gestion {
         //TODO attribuer ouvrages par boucle
         // les ouvrages sont triés par ordre de titre
         // ne pas proposer un ouvrage déjà présent dans la liste des ouvrages de cet auteur
+           for (Ouvrage ouvrage : louv) {
+               // Vérifier si l'Auteur a déjà cet Ouvrage
+               if (!a.getLouvrage().contains(ouvrage)) {
+                   a.addOuvrage(ouvrage);
+                   System.out.println("Ouvrage '" + ouvrage.getTitre() + "' ajouté à l'auteur.");
+               } else {
+                   System.out.println("L'ouvrage '" + ouvrage.getTitre() + "' est déjà attribué à l'auteur.");
+               }
+           }
     }
 
     public static void main(String[] args) {
