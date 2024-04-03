@@ -9,7 +9,7 @@ public class Auteur {
     private  String nom,prenom;
     private String nationalite;
     private Set<Ouvrage> louvrage = new HashSet<>();
-    //TODO remplacer par set
+
 
     public Auteur(String nom, String prenom, String nationalite) {
         this.nom = nom;
