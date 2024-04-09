@@ -89,8 +89,14 @@ public class Exemplaire {
     }
 
     public Lecteur lecteurActuel(){
-        if(enLocation()) return hm_loc.get(hm_loc.size()-1).getLoueur();
-        return null;
+        Set<Exemplaire> ex = hm_loc.keySet();
+        Collection<Lecteur> lec = hm_loc.values();
+        List<Lecteur> listelec = new ArrayList<>();
+        //for(Collection<Lecteur> Lecteur : lec)
+        //if(enLocation()){
+        //}
+        //return lecteur;
+        // j'ai essayé mais aucune idée ??
     }
 
 
@@ -113,9 +119,7 @@ public class Exemplaire {
 
     public boolean enLocation(){
         if(hm_loc.isEmpty()) return false;
-        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
-        if(l.getDateRestitution()==null) return true;
-        return false;
+        else return true;
     }
 
 

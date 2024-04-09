@@ -104,6 +104,18 @@ public class Gestion {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        Set<Exemplaire> ex = hm_loc.keySet();
+        List<Exemplaire> liste = new ArrayList<>();
+        for( Exemplaire e : lex){
+            if (e.enLocation()) liste.add(e);
+
+            int choix = choixListe(liste);
+            if(choix==0) return;
+
+            Exemplaire exrestitution = liste.get(choix-1);
+            hm_loc.remove(exrestitution);
+            exrestitution.modifierEtat("dispo");
+        }
     }
 
     private void gestLocations() {
