@@ -1,19 +1,15 @@
-package bibliotheque.mvc.model;
+package bibliotheque.mvcbeta.model;
 
-import bibliotheque.metier.Auteur;
-import bibliotheque.metier.Mail;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MailModel extends DAOMail {
-
-    private List<Mail> ldatas = new ArrayList<>();
-
+public class ModelList<T> extends DAO<T>{
+    private List<T> ldatas = new ArrayList<>();
 
 
     @Override
-    public Mail add( Mail elt) {
+    public T add( T elt) {
         boolean present =ldatas.contains(elt);
         if (!present) {
             ldatas.add(elt);
@@ -23,14 +19,14 @@ public class MailModel extends DAOMail {
     }
 
     @Override
-    public boolean remove( Mail elt) {
+    public boolean remove( T elt) {
         boolean ok = ldatas.remove(elt);
         notifyObservers();
         return ok;
     }
 
     @Override
-    public Mail update(Mail elt) {
+    public T update(T elt) {
         int p = ldatas.indexOf(elt);
         if (p < 0) return null;
         ldatas.set(p, elt);
@@ -39,14 +35,14 @@ public class MailModel extends DAOMail {
     }
 
     @Override
-    public Mail read(Mail rech) {
+    public T read(T rech) {
         int p = ldatas.indexOf(rech);
         if(p<0) return null;
         return ldatas.get(p);
     }
 
     @Override
-    public List<Mail> getAll() {
+    public List<T> getAll() {
         return ldatas;
     }
 }

@@ -1,44 +1,21 @@
 package bibliotheque.mvc.controller;
 
-import bibliotheque.metier.*;
-import bibliotheque.mvc.model.DAOAuteur;
-import bibliotheque.mvc.model.DAORayon;
-import bibliotheque.mvc.view.AbstractViewAuteur;
-import bibliotheque.mvc.view.AbstractViewRayon;
+import bibliotheque.metier.Exemplaire;
+import bibliotheque.metier.Rayon;
+import bibliotheque.mvc.model.DAO;
+import bibliotheque.mvc.model.DAOSpecialRayon;
+import bibliotheque.mvc.view.AbstractView;
 
 import java.util.List;
-import java.util.Set;
 
-public class RayonController {
+public class RayonController extends Controller<Rayon> implements ControllerSpecialRayon{
 
-    protected DAORayon model;
-    protected AbstractViewRayon view;
-
-    public RayonController(DAORayon model, AbstractViewRayon view) {
-        this.model = model;
-        this.view = view;
-        this.view.setController(this);
+    public RayonController(DAO<Rayon> model, AbstractView<Rayon> view) {
+        super(model, view);
     }
 
-    public List<Rayon> getAll(){
-        List<Rayon> l = model.getAll();
-        return l;
+    public List<Exemplaire> listerExemplaires(Rayon r){
+        return ((DAOSpecialRayon)model).listerExemplaires(r);
     }
 
-    public Rayon add( Rayon elt) {
-        Rayon nelt = model.add(elt);
-        return nelt;
-    }
-
-
-    public boolean remove(Rayon elt) {
-        return model.remove(elt);
-    }
-    public Rayon update(Rayon elt) {
-        return model.update(elt);
-    }
-
-    public Rayon search(Rayon rech) {
-        return  model.read(rech);
-    }
 }

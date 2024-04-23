@@ -1,19 +1,16 @@
 package bibliotheque.mvc.model;
 
-import bibliotheque.metier.Mail;
-import bibliotheque.metier.Rayon;
+import bibliotheque.metier.Lecteur;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RayonModel extends DAORayon{
-
-    private List<Rayon> ldatas = new ArrayList<>();
-
+public class ModelLecteur extends DAO<Lecteur> {
+    private List<Lecteur> ldatas = new ArrayList<>();
 
 
     @Override
-    public Rayon add(Rayon elt) {
+    public Lecteur add( Lecteur elt) {
         boolean present =ldatas.contains(elt);
         if (!present) {
             ldatas.add(elt);
@@ -23,14 +20,14 @@ public class RayonModel extends DAORayon{
     }
 
     @Override
-    public boolean remove( Rayon elt) {
+    public boolean remove( Lecteur elt) {
         boolean ok = ldatas.remove(elt);
         notifyObservers();
         return ok;
     }
 
     @Override
-    public Rayon update(Rayon elt) {
+    public Lecteur update(Lecteur elt) {
         int p = ldatas.indexOf(elt);
         if (p < 0) return null;
         ldatas.set(p, elt);
@@ -39,14 +36,15 @@ public class RayonModel extends DAORayon{
     }
 
     @Override
-    public Rayon read(Rayon rech) {
+    public Lecteur read(Lecteur rech) {
         int p = ldatas.indexOf(rech);
         if(p<0) return null;
         return ldatas.get(p);
     }
 
     @Override
-    public List<Rayon> getAll() {
+    public List<Lecteur> getAll() {
         return ldatas;
     }
+
 }
