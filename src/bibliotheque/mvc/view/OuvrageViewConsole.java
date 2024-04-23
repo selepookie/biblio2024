@@ -1,15 +1,14 @@
 package bibliotheque.mvc.view;
 
+import bibliotheque.metier.Auteur;
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.TypeOuvrage;
+import bibliotheque.mvc.GestionMVC;
 import bibliotheque.mvc.controller.ControllerSpecialOuvrage;
 import bibliotheque.utilitaires.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
@@ -58,7 +57,34 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
 
 
     public void rechercher() {
-        //TODO rechercher ouvrage en demandant type d'ouvrage, puis l'info unique relative à au type recherché
+        // TODO rechercher ouvrage en demandant type d'ouvrage, puis l'info unique relative à au type recherché
+        TypeOuvrage[] to = TypeOuvrages.values();
+        int c = Utilitaire.choixListe(list.of(to));
+        TypeOuvrage toC = to[c - 1];
+        Ouvrage rech = null;
+        List<Ouvrage> listO = GestionMVC.ov.getAll();
+        switch(toC){
+            case LIVRE:
+                System.out.println("isbn");
+                String isbn = sc.nextLine();
+                break;
+            case CD:
+                System.out.println("Code CD :");
+                long codeCD = sc.nextLong();
+                break;
+            case DVD:
+                System.out.println("code dvd");
+                long codeDVD = sc.nextLong();
+                break;
+        }
+        if(rech!=null){
+            System.out.println(rech);
+        }
+        else{
+            System.out.println("aucun ouvrage trouvé");
+        }
+
+
     }
 
 
@@ -85,9 +111,20 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
         Ouvrage a = null;
         List<OuvrageFactory> lof = new ArrayList<>(Arrays.asList(new LivreFactory(),new CDFactory(),new DVDFactory()));
         a = lof.get(choix-1).create();
-        //TODO affecter un ou plusieurs auteurs
-        //TODO trier les auteurs présentés par ordre de nom et prénom  ==>  classe anonyme
-        //TODO ne pas présenter les auteurs déjà enregistrés pour cet ouvrage
+        // TODO affecter un ou plusieurs auteurs
+        List<Auteur> listA = new ArrayList<>();
+        int c = Utilitaire.choixListe(listA);
+        a.setLauteurs((Set<Auteur>) GestionMVC.av.getAll().get(c-1));
+        // TODO trier les auteurs présentés par ordre de nom et prénom  ==>  classe anonyme
+        listA.sort(new Comparator<Auteur>() {
+            @Override
+            public int compare(Auteur o1, Auteur o2) {
+                return 0;
+            }
+        });
+        // TODO ne pas présenter les auteurs déjà enregistrés pour cet ouvrage
+        Set<Auteur> listAEnregistrer = a.getLauteurs();
+        listA.removeAll(listAEnregistrer);
         controller.add(a);
     }
 
